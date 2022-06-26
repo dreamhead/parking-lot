@@ -1,0 +1,68 @@
+plugins {
+    id 'jacoco'
+}
+
+class JacocoExtension {
+    boolean enabled = true
+    List<String> excludePackages;
+    List<String> excludeClasses;
+}
+
+project.extensions.create('coverage', JacocoExtension)
+
+test.finalizedBy jacocoTestReport
+jacocoTestReport.dependsOn test
+jacocoTestCoverageVerification.dependsOn compileJava, processResources
+check.dependsOn jacocoTestCoverageVerification
+
+jacoco.toolVersion = jacocoVersion
+
+jacocoTestCoverageVerification {
+  afterEvaluate {
+    def excludeClasses = (coverage.excludeClasses ?: []).collect {
+      "${it.replaceAll('\\.', '/') + '.class'}"
+    }
+
+    def excludePackageClasses = (coverage.excludePackages ?: []).collect {
+      "${it.replaceAll('\\.', '/') + '/*'}"
+    }
+
+    def excludes = excludeClasses + excludePackageClasses
+    classDirectories.setFrom(files(classDirectories.files.collect {
+      fileTree(dir: it, exclude: excludes)
+    }))
+
+    test.jacoco.enabled = coverage.enabled
+  }
+
+  violationRules {
+    rule {
+      enabled = coverage.enabled
+      limit {
+        counter = 'LINE'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+      limit {
+        counter = 'BRANCH'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+      limit {
+        counter = 'CLASS'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+      limit {
+        counter = 'INSTRUCTION'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+      limit {
+        counter = 'METHOD'
+        value = 'COVEREDRATIO'
+        minimum = 1.0
+      }
+    }
+  }
+}

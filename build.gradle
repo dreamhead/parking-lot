@@ -1,0 +1,7 @@
+plugins {
+    id "com.github.dreamhead.idea"
+}
+
+wrapper {
+    gradleVersion = '7.4.2'
+}

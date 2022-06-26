@@ -1,0 +1,21 @@
+plugins {
+    id 'com.github.dreamhead.parking'
+
+}
+
+style {
+    excludePackages = [
+    ]
+    excludeClasses = [
+    ]
+}
+
+coverage {
+    excludePackages = [
+    ]
+    excludeClasses = [
+    ]
+}
+
+project.dependencies {
+}

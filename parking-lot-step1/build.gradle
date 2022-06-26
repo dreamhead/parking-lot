@@ -1,0 +1,24 @@
+import org.flywaydb.gradle.task.*
+
+plugins {
+    id 'com.github.dreamhead.parking'
+}
+
+style {
+    excludePackages = [
+    ]
+    excludeClasses = [
+            "com.github.dreamhead.todo.api.Bootstrap"
+    ]
+}
+
+coverage {
+    excludePackages = [
+    ]
+    excludeClasses = [
+            "com.github.dreamhead.todo.api.Bootstrap"
+    ]
+}
+
+dependencies {
+}

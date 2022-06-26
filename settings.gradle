@@ -1,0 +1,9 @@
+rootProject.name = 'parking-lot'
+
+include 'parking-lot-step1'
+include 'parking-lot-step2'
+include 'parking-lot-step3'
+include 'parking-lot-step4'
+include 'parking-lot-step5'
+include 'parking-lot-step6'
+include 'parking-lot-step7'
